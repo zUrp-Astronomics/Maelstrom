@@ -2,7 +2,9 @@
 ![GPL 3.0 License](https://img.shields.io/badge/GitHub-GPL--3.0-informational)
 **Cam87 Redux** un capteur APS-C dans le corps d'une cam planétaire ZWO
 
+
 ** PRELIMINARY COMMIT **
+
 ** not validated **
 
 ![ED view](https://github.com/zUrp-Astronomics/Cam87-Redux/blob/c6d6775af85cb11b0b84bf59b08a4f8a324bd49f/Logic_board/Cam87R_edux%20-%20Logic_board_v1.1%20-%202_3D-view_top.png)
