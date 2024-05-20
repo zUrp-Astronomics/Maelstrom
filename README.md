@@ -1,4 +1,5 @@
-# Cam87circle
+# Maelstrom Camera
+![GPL 3.0 License](https://img.shields.io/badge/GitHub-GPL--3.0-informational)
 **Cam87 Redux** un capteur APS-C dans le corps d'une cam planétaire ZWO
 
 ** PRELIMINARY COMMIT **
