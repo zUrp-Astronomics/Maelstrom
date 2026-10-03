@@ -1,0 +1,83 @@
+name: CI
+
+# Le rail CI de TOUT projet créé par la fleet — posé par le scaffold. Une seule source :
+# `priv/catalogue/project_template/main/`.
+#
+# CE QU'IL FAIT : il prouve que la chaîne existe (un push atteint la forge, la forge dispatche, un
+# runner exécute, un verdict revient) ET il tourne dans une image qui SAIT faire tourner un vrai
+# harnais — node (donc `actions/checkout@v4`), python3, bash, git, les outils courants. Un projet
+# neuf n'a pas encore de suite : le step ci-dessous est un placeholder VERT. Le jour où le projet
+# sait ce qu'il est, il REMPLACE ce step par sa commande de test — DANS LE MÊME job, sur la même
+# image, sans rien reconfigurer.
+#
+# ⚠ POURQUOI `container:` ET PAS `runs-on: <label-gras>`. Le label `shell` est le contrat MINIMAL
+# que tout runner LCARS sert ; ce qu'il y a derrière n'est pas garanti (le déploiement de référence
+# le mappe sur `alpine:3.20` — pas de node, pas de git, pas de bash). `container:` court-circuite
+# ça : le daemon du runner tire l'image nommée, quelle que soit la config du label. Une seule image
+# à tirer, une seule fois — le runner la CACHE (volume nommé `runner-dind`), donc seul le premier job
+# d'un runner neuf paie le téléchargement ; tous les suivants la réutilisent.
+#
+# ⚠ CE QUI A COÛTÉ TROIS JOURS, ET QUE CE FICHIER FERME. `actions/checkout@v4` est une action JS
+# node20 : elle EXIGE node dans l'image. Sur `alpine` nu (l'ancien défaut de ce rail) elle mourait
+# au step 0 — « rouge au checkout sur un code dont la suite passait » (mesuré 2026-08-03 ET 08-23).
+# `catthehacker/ubuntu:act-latest` est l'image de référence de gitea/act : elle porte node et les
+# langages courants. Le checkout marche, et un projet python/bash/go n'a RIEN à configurer.
+#
+# ⚠ SI CETTE CI TE BLOQUE, LE FIX SE CONSOMME IMMÉDIATEMENT. Le runner joue le `ci.yml` du commit
+# TESTÉ — la tête de ta branche, pour `push` comme pour `pull_request` (le merge-ref porte la
+# version du head). Corriger ce fichier DANS ta branche et repousser suffit : la PR se débloque
+# elle-même. Il n'y a rien à merger d'abord, rien à sortir de la PR, et pas de chicken-egg.
+#
+# ⚠ IL TE MANQUE UN LANGAGE ? UNE ACTION DE SETUP, COMME TOUT LE MONDE. C'est le mécanisme
+# standard des forges, et il marche ici : `uses:` se résout, et le job a du réseau. L'image porte
+# le socle (node, python3, bash, git) ; le reste se télécharge AU JOB, et la version que tu veux :
+#
+#     - uses: erlef/setup-beam@v1        # elixir/erlang    - uses: actions/setup-go@v5
+#     - uses: actions/setup-node@v4      # une autre node   - uses: actions/setup-java@v4
+#     - uses: actions/setup-python@v5    # une autre python - uses: dtolnay/rust-toolchain@stable
+#
+# Ajoute aussi `actions/cache@v4` si le téléchargement pèse : c'est le même geste que partout.
+#
+# ⚠ ET SURTOUT PAS LE RAIL D'OUTILLAGE (`tool_request`). Ce rail-là sert les PODS, qui tournent
+# sandboxés SANS sortie réseau : un agent ne peut rien télécharger, d'où un geste privilégié
+# approuvé par un humain. La CI, elle, a du réseau — elle télécharge. Demander une convergence
+# privilégiée pour un outil de CI, c'est payer une approbation humaine pour trois lignes de YAML,
+# et poser sur la machine un outil dont le job n'aurait de toute façon rien vu.
+#
+# TU CHANGES QUAND MÊME D'IMAGE ? Mets le nom que tu veux sur `container:` — pour un projet
+# mono-langage (ex. `python:3-slim`) c'est plus rapide qu'un setup. Vérifie qu'elle porte node si
+# tu gardes `checkout` — sinon repli : `git clone` manuel avec le token du job.
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  # LE NOM DU JOB EST LU PAR LA FLEET. Gitea compose le contexte du statut ainsi :
+  # `<workflow> / <job> (<déclencheur>)` → ici `CI / no-harness-yet (pull_request)`, sous le glob
+  # `CI / *` exigé par la protection de `main`. Le rail est vert, la première PR passe.
+  #
+  # ⚠ CE VERT EST EXIGE DE TOUT LE MONDE, ET CE QU'IL VEUT DIRE DEPEND DE LA CARTE. La protection de
+# `main` exige un statut `CI / *` quelle que soit la carte du projet — c'est le mur qui empeche une
+# main humaine de passer a cote du rail, et il ne se negocie pas. Une carte qui declare n'avoir rien
+# a prouver (`ci: ignore` — PoC jetable, smoke technique, audit sans code) doit donc quand meme
+# PRODUIRE ce statut : ce job le produit, et la ligne `Remplace ce step par ta commande de test (## Test du CLAUDE.md), dans CE job — l'image porte deja ta toolchain. Renommer le job EST le signal que ce projet a pose sa suite.` dit alors que ce vert est un
+# RECU et pas une preuve. Sur une carte qui a quelque chose a prouver, la meme ligne invite a poser
+# la vraie suite ici.
+#
+# `no-harness-yet` est le SIGNAL « ce projet n'a pas encore de vraie suite » : le brief remis au
+  # juge nomme les contextes qui ont tourné, donc « aucun harnais ici » devient une constatation
+  # qu'il rend au lieu d'un fait invisible. Le renommer (ex. `test`) est exactement ce qu'un projet
+  # FAIT quand il pose sa suite — la disparition de ce nom est le signal, et elle est gratuite.
+  no-harness-yet:
+    runs-on: shell
+    container: catthehacker/ubuntu:act-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Le rail répond
+        run: |
+          echo "CI: le push a atteint la forge, la forge a dispatché, le runner exécute."
+          echo "repo=${GITHUB_REPOSITORY} ref=${GITHUB_REF} sha=${GITHUB_SHA}"
+          echo "image: node/python3/bash/git disponibles ; checkout OK."
+          echo "⚠ Ce vert ne prouve RIEN du code."
+          echo "   Remplace ce step par ta commande de test (## Test du CLAUDE.md), dans CE job — l'image porte deja ta toolchain. Renommer le job EST le signal que ce projet a pose sa suite."
