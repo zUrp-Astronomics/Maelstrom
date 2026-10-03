@@ -1,0 +1,7 @@
+{
+  "_schema": "lcars/declaration",
+  "declared_at": "2026-10-03",
+  "declared_by": "starfleet",
+  "justification": "Carte choisie explicitement par l'humain : brief-gate.",
+  "pipeline_default": "brief-gate"
+}
