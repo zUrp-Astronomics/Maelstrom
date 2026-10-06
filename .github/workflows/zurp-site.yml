@@ -1,0 +1,34 @@
+# SOURCE: zurp-astronomics-site — prévient le site zurp-astronomics.github.io qu'il doit se reconstruire
+# AUTHOR: architect
+# DATE: 2026-10-06
+# STATUS: draft
+#
+# À poser tel quel dans chaque dépôt produit (.github/workflows/zurp-site.yml). Aucun build ici : le
+# site se reconstruit chez lui et vient relire 9_Assets/ et les releases de ce dépôt.
+#
+# Se déclenche quand une release est publiée, dépubliée ou supprimée, et quand 9_Assets/ change sur
+# main (une faute dans la fiche ne doit pas attendre la prochaine release).
+#
+# Jeton : ZURP_SITE_DISPATCH, secret d'ORGANISATION (posé une fois, partagé à tous les dépôts).
+# Fine-grained PAT, propriétaire zUrp-Astronomics, accès au seul dépôt zurp-astronomics.github.io,
+# permission « Contents : Read and write » (exigée par GitHub pour /dispatches).
+name: Site zUrp
+
+on:
+  release:
+    types: [published, unpublished, deleted]
+  push:
+    branches: [main]
+    paths: ["9_Assets/**"]
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Reconstruire le site
+        env:
+          GH_TOKEN: ${{ secrets.ZURP_SITE_DISPATCH }}
+        run: gh api repos/zUrp-Astronomics/zurp-astronomics.github.io/dispatches -f event_type=zurp-catalog
