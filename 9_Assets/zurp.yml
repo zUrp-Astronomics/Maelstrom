@@ -14,7 +14,7 @@
 
 name: Maelstrom
 tagline: APS-C cooled astronomical camera, with Nikon D40 CCD sensor.
-slogan: Freeze the noise!
+slogan: Pull the sky in
 category: Camera
 section: cameras          # mounts | cameras | gadgets | future
 status: wip               # wip | future | released — décidé par l'humain ; une release ne le change pas
@@ -30,9 +30,9 @@ description:
     an APS-C CCD astrocam for under the price of a new CMOS — cannibalize a 2006 DSLR and do the
     electronics yourself.
 
-poster: maelstrom.webp    # à côté de cette fiche — l'affiche série 2 (1254 × 1254)
+poster: maelstrom.webp    # à côté de cette fiche — l'affiche 2.6 (1254 × 1254)
 posterAlt: >-
-  Maelstrom poster on a worn, chipped cream plate: a steel mechanical sea dragon bristling with
-  ice-blue crystal spikes, its eye glowing blue, bursts out of a churning wave in front of the full
-  moon, ice-blue rays and blueprint sketches, above the slogan “Freeze the noise!”.
-accent: '#04b8fd'         # couleur des rayons de l'affiche
+  Maelstrom poster on a worn, chipped cream plate: a colossal armored steel sea serpent coils into a
+  churning whirlpool, rows of curved blade-like fins spiralling toward a glowing blue core, in front
+  of the full moon, with ice-blue rays and blueprint sketches, above the slogan “Pull the sky in”.
+accent: '#04c8fd'         # couleur des rayons de l'affiche
