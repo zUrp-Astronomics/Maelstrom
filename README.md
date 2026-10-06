@@ -123,5 +123,6 @@ Exceptions, qui gardent leur propre licence :
 - le viewer (`5_App/Viewer/viewer cam87.exe`, `cam87.xml`) et le firmware `4_Firmware/cam87 v1.0.bin`
   viennent de la cam87 de grim (Gilmanov Rim), publiés sans licence ; la `ftd2xx.dll` qui
   accompagne le viewer est la DLL D2XX de FTDI ;
-- `4_Firmware/cam87.ept` : gabarit MProg de l'EEPROM FT2232H de la cam87, d'**origine inconnue**,
-  sans licence connue.
+- `4_Firmware/cam87.ept` : gabarit MProg de l'EEPROM du FT2232H de la cam87, récupéré sur les
+  forums de la cam87 — **très probablement** astroclub.kiev.ua, le forum où le projet de grim est
+  né (provenance probable, non confirmée) —, sans licence connue.
