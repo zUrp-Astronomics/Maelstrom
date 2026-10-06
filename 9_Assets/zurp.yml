@@ -1,0 +1,37 @@
+# SOURCE: zurp-astronomics-site — fiche vitrine de Maelstrom, lue par le site zurp-astronomics.github.io
+# AUTHOR: engineer
+# DATE: 2026-10-06
+# STATUS: active — transcrite mot pour mot de src/data/products.ts (site @ main 008e19e, ticket #49)
+#
+# Sa place est 9_Assets/zurp.yml dans le dépôt du produit. Tant que le dépôt ne la porte pas, le
+# site la lit ici, dans content/products/maelstrom/, au même format et avec le même code de validation
+# (src/lib/catalog/read.mjs). Migrer le produit = déplacer ce dossier, tel quel, dans 9_Assets/.
+#
+# Déduit, donc absent d'ici : le slug (nom du dossier, ou du dépôt, en minuscules → /maelstrom/), le
+# lien vers le dépôt (https://github.com/zUrp-Astronomics/maelstrom), le statut « released » et la
+# version (tag de la dernière release GitHub), le rang dans sa section.
+
+name: Maelstrom
+tagline: APS-C cooled astronomical camera, with Nikon D40 CCD sensor.
+slogan: Freeze the noise!
+category: Camera
+section: cameras          # mounts | cameras | gadgets | future
+status: wip               # wip | future — devient « released » dès qu'une release existe sur GitHub
+basedOn: Cam86 / Cam87
+
+description:
+  - >-
+    Maelstrom is an APS-C cooled astronomical camera, built around the CCD sensor salvaged from a
+    Nikon D40. Based on the Cam86/Cam87 projects, which pioneered the DSLR-sensor-reborn-as-astrocam
+    approach.
+  - >-
+    Active TEC cooling with condensation control, 16-bit ADC path, INDI driver. The only way to get
+    an APS-C CCD astrocam for under the price of a new CMOS — cannibalize a 2006 DSLR and do the
+    electronics yourself.
+
+poster: maelstrom.webp    # à côté de cette fiche — l'affiche série 2 (1254 × 1254)
+posterAlt: >-
+  Maelstrom poster on a worn, chipped cream plate: a steel mechanical sea dragon bristling with
+  ice-blue crystal spikes, its eye glowing blue, bursts out of a churning wave in front of the full
+  moon, ice-blue rays and blueprint sketches, above the slogan “Freeze the noise!”.
+accent: '#04b8fd'         # couleur des rayons de l'affiche
