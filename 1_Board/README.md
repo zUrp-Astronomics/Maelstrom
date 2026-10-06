@@ -1,0 +1,1 @@
+Les fichiers de fabrication des deux cartes v1.1, tels que les sort l'outil de CAO : la carte logique dans `Logic-board/`, la carte d'alimentation dans `Power-board/`, chacune avec sa fiche `_0-README.txt`.
