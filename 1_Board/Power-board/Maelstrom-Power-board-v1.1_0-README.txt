@@ -1,0 +1,26 @@
+Maelstrom - Power-board v1.1
+zUrp Astronomics - lordzurp.dev@gmail.com
+Projet : https://oshwlab.com/lordzurp/cam87_redux   Repo : https://github.com/zUrp-Astronomics/maelstrom
+
+FICHIERS
+  1-Schematics.pdf   schéma
+  2-Views            vues dessus / dessous / 3D
+  3-Gerber.zip       Gerbers RS-274X + perçages Excellon
+  4-BoM.xlsx         nomenclature, références LCSC
+  5-PnP.xlsx         placement, coordonnées en mm
+
+PCB
+  Couches      : 2
+  Dimensions   : <à remplir>
+  Épaisseur    : <à remplir>
+  Cuivre       : <à remplir>
+  Vernis       : <à remplir>      Sérigraphie : <à remplir>
+  Finition     : <à remplir>
+
+ASSEMBLAGE
+  Face         : deux faces
+  Composants   : 10 lignes BoM, 13 placements
+  Non montés   : <à remplir>
+
+POINTS D'ATTENTION
+  - <à remplir>

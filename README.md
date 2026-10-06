@@ -19,7 +19,7 @@
 
 Projet OSHWlab : https://oshwlab.com/lordzurp/cam87_redux
 
-![Carte logique v1.1, vue 3D du dessus](1_Board/Logic_board/Maelstrom_LogicBoard_v1.1_2_3D-view_top.png)
+![Carte logique v1.1, vue 3D du dessus](1_Board/Logic-board/Maelstrom-Logic-board-v1.1_2-view_3D.png)
 
 ## La base
 
@@ -67,52 +67,46 @@ Pour 5 cartes, c'est 160 €, donc environ 200 € au final, soit environ 40 €
 
 ## Arborescence
 
-- [`0_Datasheets/`](0_Datasheets/) : datasheets des composants — AD9826, CXD1267, EL7457, FT2232H,
-  MC34063 (avec sa feuille de calcul `.XLS`), STM32F103, TPS763, 93C46/CAV93C46, AN920, brochage de
-  l'ICX453.
-- [`1_Board/`](1_Board/) : les deux cartes électroniques v1.1, chacune avec son schéma, ses vues 2D
-  et 3D, son modèle STEP, ses Gerber, sa BOM et son fichier de placement (PnP).
-  - [`Logic_board/`](1_Board/Logic_board/) : la carte logique ;
-  - [`Power_board/`](1_Board/Power_board/) : la carte d'alimentation.
-- [`2_Hardware/`](2_Hardware/) : la mécanique — cold plate (noyau et plaque du dessous, dessus avec
-  son plan PDF) et radiateur, en STEP.
-- [`3_3D-Models/`](3_3D-Models/) : modèles 3D — le modèle Fusion 360 `Maelstrom_Camera.f3d`, le STEP
-  `Maelstrom_Camera.step`, et le modèle 3D de la carte d'alimentation du 2024-03-09.
-- [`4_Firmware/`](4_Firmware/) : `cam87 v1.0.bin`, le firmware binaire STM32 de la cam87, et
-  `cam87.ept`, le gabarit MProg de l'EEPROM du FT2232H.
-- [`5_App/`](5_App/) : les logiciels Windows, chacun dans son dossier d'origine, à garder groupé
-  (l'exécutable charge sa DLL et ses fichiers à côté de lui).
-  - [`MProg 3.5 Release/`](5_App/MProg%203.5%20Release/) : MProg de FTDI, pour programmer l'EEPROM
-    du FT2232H ;
-  - [`Viewer/`](5_App/Viewer/) : le viewer de la cam87 (`viewer cam87.exe`, sa `ftd2xx.dll` et
-    `cam87.xml`).
-- [`8_References/`](8_References/) : documents des caméras d'origine — schémas de la CAM86 et de la
-  cam87, images de la QHY8pro.
-- [`9_Assets/`](9_Assets/) : la vitrine du site zUrp (affiche et fiche `zurp.yml`).
+| dossier | contenu |
+|---|---|
+| [`0_Datasheets/`](0_Datasheets/) | datasheets des composants — AD9826, CXD1267, EL7457, FT2232H, MC34063 (avec sa feuille de calcul `.XLS` et la note AN920), STM32F103, TPS763, 93C46/CAV93C46, brochage de l'ICX453 |
+| [`1_Board/`](1_Board/) | fabrication des deux cartes électroniques v1.1, un sous-dossier par carte : [`Logic-board/`](1_Board/Logic-board/), la carte logique, et [`Power-board/`](1_Board/Power-board/), la carte d'alimentation — chacune avec sa fiche, son schéma, ses vues, ses Gerber, sa BoM et son fichier de placement (PnP) |
+| [`2_Hardware/`](2_Hardware/) | mécanique hors carte : cold plate (noyau et plaque du dessous, dessus avec son plan PDF) et radiateur en STEP ; source de conception de la caméra, `Maelstrom_Camera`, en F3D (Fusion 360) et en STEP |
+| [`4_Firmware/`](4_Firmware/) | firmware : `cam87 v1.0.bin`, le binaire STM32 de la cam87, et `cam87.ept`, le gabarit MProg de l'EEPROM du FT2232H |
+| [`5_App/`](5_App/) | logiciels Windows, chacun dans son dossier d'origine, à garder groupé (l'exécutable charge sa DLL et ses fichiers à côté de lui) : [`MProg 3.5 Release/`](5_App/MProg%203.5%20Release/), MProg de FTDI, pour programmer l'EEPROM du FT2232H, et [`Viewer/`](5_App/Viewer/), le viewer de la cam87 (`viewer cam87.exe`, sa `ftd2xx.dll` et `cam87.xml`) |
+| [`8_References/`](8_References/) | documents de référence externes : schémas de la CAM86 et de la cam87, images de la QHY8pro |
+| [`9_Assets/`](9_Assets/) | vitrine du site zUrp : la fiche `zurp.yml` et l'affiche `maelstrom.webp` |
 
-### Nommage des fichiers de conception
+### Nommage des fichiers de carte
 
-Les fichiers conçus par le projet (dans `1_Board/`, `2_Hardware/` et `3_3D-Models/`) suivent le
-schéma :
+Les fichiers de `1_Board/` suivent le schéma :
 
 ```
-Maelstrom_<Pièce>[_<version ou date>][_<rang>_<document>].<ext>
+Maelstrom-<Carte>-v<version>_<n>-<Nature>.<ext>
 ```
 
-- `<Pièce>` : la carte ou la pièce, sans espace ni `_` — `LogicBoard`, `PowerBoard`,
-  `ColdPlate-BotCore`, `ColdPlate-BotPlate`, `ColdPlate-Top`, `Heatsink`, `Camera` ;
-- `<version ou date>` : quand le fichier en a une — `v1.1`, `2024-03-09` ;
-- `<rang>_<document>` : pour les cartes, le rang du document dans le dossier de fabrication —
-  `1_schematics`, `2_2D-view_top`, `2_3D-view_bot`, `2_3D-view`, `3_gerber`, `4_BOM`, `5_PnP`.
+- `<Carte>` : `Logic-board` ou `Power-board`, le nom du sous-dossier ;
+- `<version>` : la version de la carte, `1.1` ;
+- `<n>-<Nature>` : la nature du fichier.
 
-Exemple : `Maelstrom_LogicBoard_v1.1_3_gerber.zip`.
+| n | fichier |
+|---|---|
+| 0 | `0-README.txt` : la fiche de la carte |
+| 1 | `1-Schematics.pdf`, `1-Schematics.png` : le schéma |
+| 2 | `2-view_top.png`, `2-view_bot.png` : vues du dessus et du dessous ; `2-view_3D.png`, `2-view_3D-bot.png`, `2-view_3D.step` : vues 3D du dessus et du dessous, et modèle 3D |
+| 3 | `3-Gerber.zip` : Gerber RS-274X et perçages Excellon |
+| 4 | `4-BoM.xlsx` : la nomenclature, références LCSC |
+| 5 | `5-PnP.xlsx` : le placement, coordonnées en mm |
 
-Les fichiers de tiers (datasheets, documents de référence, firmware, MProg, viewer) gardent leur
-nom d'origine.
+Exemple : `Maelstrom-Logic-board-v1.1_3-Gerber.zip`.
 
-## Licence
+Les autres fichiers gardent leur nom : ceux de `2_Hardware/` (`Maelstrom_<Pièce>.<ext>`), et les
+fichiers de tiers (datasheets, documents de référence, firmware, MProg, viewer).
 
-Ce que le projet a conçu est sous **GPL-3.0** (voir [`LICENSE`](LICENSE)).
+## Licences
+
+- Logiciel : [`LICENSE`](LICENSE)
+- Matériel : [`LICENSE-HARDWARE`](LICENSE-HARDWARE)
 
 Exceptions, qui gardent leur propre licence :
 
