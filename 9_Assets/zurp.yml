@@ -8,15 +8,16 @@
 # (src/lib/catalog/read.mjs). Migrer le produit = déplacer ce dossier, tel quel, dans 9_Assets/.
 #
 # Déduit, donc absent d'ici : le slug (nom du dossier, ou du dépôt, en minuscules → /maelstrom/), le
-# lien vers le dépôt (https://github.com/zUrp-Astronomics/maelstrom), le statut « released » et la
-# version (tag de la dernière release GitHub), le rang dans sa section.
+# lien vers le dépôt (https://github.com/zUrp-Astronomics/maelstrom), et, de la dernière release
+# GitHub, la version affichée (son tag, tel quel) et le rang dans sa section (dernière release en
+# haut). Le statut, lui, n'est pas déduit : il est écrit ici, et c'est l'humain qui le décide.
 
 name: Maelstrom
 tagline: APS-C cooled astronomical camera, with Nikon D40 CCD sensor.
 slogan: Freeze the noise!
 category: Camera
 section: cameras          # mounts | cameras | gadgets | future
-status: wip               # wip | future — devient « released » dès qu'une release existe sur GitHub
+status: wip               # wip | future | released — décidé par l'humain ; une release ne le change pas
 basedOn: Cam86 / Cam87
 
 description:
