@@ -1,122 +1,110 @@
 <!-- zurp-readme-header:begin — paste this block once, never again: the poster and the badges update themselves at each build of the site — do not edit it -->
 <div align="center">
 
-<a href="https://zurp-astronomics.github.io/maelstrom/"><img src="https://zurp-astronomics.github.io/brand/posters/maelstrom.webp" alt="zUrp Astronomics product poster" width="420"></a>
+<a href="https://zurp-astronomics.github.io/maelstrom/"><img src="9_Assets/maelstrom.webp" alt="zUrp Astronomics product poster" width="420"></a>
 
 ![status](https://img.shields.io/endpoint?url=https%3A%2F%2Fzurp-astronomics.github.io%2Fbrand%2Fstatus%2Fmaelstrom.json)
-![licence](https://img.shields.io/github/license/zUrp-Astronomics/maelstrom)
+![software licence](https://zurp-astronomics.github.io/brand/badges/maelstrom/software.svg)
+![hardware licence](https://zurp-astronomics.github.io/brand/badges/maelstrom/hardware.svg)
 
 </div>
 
 <!-- zurp-readme-header:end -->
-# Maelstrom — caméra APS-C refroidie
 
-> ## ⚠ Work in Progress — NOT VALIDATED — don't build it ⚠
->
-> **Commit préliminaire, rien n'est validé.** Ne fabriquez pas cette caméra en l'état.
+<h1 align="center">Maelstrom</h1>
 
-**Maelstrom** (ex-**Cam87 Redux**) : un capteur APS-C dans le corps d'une caméra planétaire ZWO.
+<p align="center"><strong><em>Pull the sky in</em></strong></p>
 
-Projet OSHWlab : https://oshwlab.com/lordzurp/cam87_redux
+<p align="center">
+  <a href="https://zurp-astronomics.github.io/maelstrom/">Website</a> ·
+  <a href="../../releases">Releases</a> ·
+  <a href="https://github.com/zUrp-Astronomics">zUrp Astronomics</a>
+</p>
 
-![Carte logique v1.1, vue 3D du dessus](1_Board/Logic-board/Maelstrom-Logic-board-v1.1_2-view_3D.png)
+---
 
-## La base
+<div align="center">
 
-La Cam87, c'est un projet ukrainien du turfu pour faire une caméra astro refroidie à partir d'un
-capteur de Nikon D40 : APS-C, 6 Mpx, pixels de 7,8 µm. C'est le même capteur que dans la QHY 8Pro
-([fiche technique](https://www.astroshop.de/fr/cameras-astronomiques/camera-qhy-8-pro-color/p,54748#specifications)).
+## 🚧 Work in progress — do not build yet 🚧
 
-J'ai déjà une version « box » fonctionnelle, donc on part d'un projet déjà validé. Mais la mécanique
-était à revoir : 3 PCB à assembler, boîtier imprimé fragile…
+**Nothing here is validated on real hardware.**<br>
+Files change without notice, and what you build today may need rework tomorrow.<br>
+👀 Watch the repository to know when the first release lands.
 
-## Le projet
+</div>
 
-Rentrer ce truc dans le boîtier d'une caméra planétaire ZWO. J'ai un boîtier d'ASI224 vide
-(électronique fumée) : techniquement, ça doit passer !
+---
 
-## Mises à jour du schéma
+## Why Maelstrom?
 
-- refonte de la partie refroidissement : opto-coupleur et MOSFET isolés du reste du PCB ;
-- ajout de capas de découplage un peu partout ;
-- reprise de la BOM pour optimiser le coût et le placement (→ 0402…) ;
-- retour sur une EEPROM standard (merci la dispo).
+A cooled APS-C CCD astrocam usually costs more than a new CMOS camera. **Maelstrom cannibalises a
+2006 DSLR instead**: the CCD of a Nikon D40 — APS-C, 6 Mpx, 7.8 µm pixels, the very sensor of the
+QHY8 Pro — reborn behind active TEC cooling and a 16-bit readout chain, and headed for the body of
+a ZWO planetary camera. Around **€40 per board**. Do the electronics yourself, and pull the sky in.
 
-## PCB
+## At a glance
 
-- rond, 56 mm de diamètre ;
-- zone de composants de 48,5 mm (rebord interne du boîtier) ;
-- séparation au maximum des parties alim, ADC, pilotage CCD H et V, logique ;
-- découplage des alims aux petits oignons, des capas partout où il y a un trou ;
-- connecteur USB type B.
-
-Les fichiers des deux cartes (v1.1) sont dans [`1_Board/`](1_Board/) : carte logique et carte
-d'alimentation.
-
-## Version alternative
-
-Une variante est envisagée, **sans aucun fichier dans ce dépôt** à ce jour :
-
-- ronde, 48,5 mm de diamètre ;
-- connecteur USB-C ;
-- pas de MOSFET, juste l'opto pour le refroidissement.
-
-## Fabrication
-
-Pour 5 cartes, c'est 160 €, donc environ 200 € au final, soit environ 40 € pièce.
-
-## Arborescence
-
-| dossier | contenu |
+| | |
 |---|---|
-| [`0_Datasheets/`](0_Datasheets/) | datasheets des composants — AD9826, CXD1267, EL7457, FT2232H, MC34063 (avec sa feuille de calcul `.XLS` et la note AN920), STM32F103, TPS763, 93C46/CAV93C46, brochage de l'ICX453 |
-| [`1_Board/`](1_Board/) | fabrication des deux cartes électroniques v1.1, un sous-dossier par carte : [`Logic-board/`](1_Board/Logic-board/), la carte logique, et [`Power-board/`](1_Board/Power-board/), la carte d'alimentation — chacune avec sa fiche, son schéma, ses vues, ses Gerber, sa BoM et son fichier de placement (PnP) |
-| [`2_Hardware/`](2_Hardware/) | mécanique hors carte : cold plate (noyau et plaque du dessous, dessus avec son plan PDF) et radiateur en STEP ; source de conception de la caméra, `Maelstrom_Camera`, en F3D (Fusion 360) et en STEP |
-| [`4_Firmware/`](4_Firmware/) | firmware : `cam87 v1.0.bin`, le binaire STM32 de la cam87, et `cam87.ept`, le gabarit MProg de l'EEPROM du FT2232H |
-| [`5_App/`](5_App/) | logiciels Windows, chacun dans son dossier d'origine, à garder groupé (l'exécutable charge sa DLL et ses fichiers à côté de lui) : [`MProg 3.5 Release/`](5_App/MProg%203.5%20Release/), MProg de FTDI, pour programmer l'EEPROM du FT2232H, et [`Viewer/`](5_App/Viewer/), le viewer de la cam87 (`viewer cam87.exe`, sa `ftd2xx.dll` et `cam87.xml`) |
-| [`8_References/`](8_References/) | documents de référence externes : schémas de la CAM86 et de la cam87, images de la QHY8pro |
-| [`9_Assets/`](9_Assets/) | vitrine du site zUrp : la fiche `zurp.yml` et l'affiche `maelstrom.webp` |
+| Sensor | Nikon D40 CCD (Sony ICX453): APS-C, 6 Mpx, 7.8 µm pixels — same as the [QHY8 Pro](https://www.astroshop.de/fr/cameras-astronomiques/camera-qhy-8-pro-color/p,54748#specifications) |
+| Readout | AD9826 16-bit ADC, FT2232H USB bridge, STM32F103 |
+| Cooling | active TEC, opto-coupler and MOSFET isolated from the rest of the board |
+| Boards | logic and power, v1.1 — round, 56 mm, components inside 48.5 mm |
+| Link | USB type-B |
+| Target body | the housing of a ZWO ASI224 planetary camera |
+| Cost | 5 boards for €160 of fabrication, about €200 all in — around €40 each |
 
-### Nommage des fichiers de carte
+## Hardware
 
-Les fichiers de `1_Board/` suivent le schéma :
+<p align="center"><img src="9_Assets/maelstrom-logic-board-3d.webp" alt="Maelstrom logic board v1.1, 3D view" width="500"></p>
 
-```
-Maelstrom-<Carte>-v<version>_<n>-<Nature>.<ext>
-```
+Maelstrom — formerly *Cam87 Redux* — starts from a design that already works: the author runs a
+functional "box" version of the cam87. What it changes is the mechanics: three boards to assemble and
+a fragile printed case become two round boards meant to fit the housing of a ZWO ASI224 — on
+paper, it fits.
 
-- `<Carte>` : `Logic-board` ou `Power-board`, le nom du sous-dossier ;
-- `<version>` : la version de la carte, `1.1` ;
-- `<n>-<Nature>` : la nature du fichier.
+- **Layout.** Power, ADC, CCD horizontal and vertical drive and logic are kept as far apart as the
+  56 mm allow; the supplies are decoupled with care, a capacitor wherever there was room.
+- **Schematic updates.** Cooling redesigned around an isolated opto-coupler and MOSFET; decoupling
+  added throughout; BoM reworked for cost and placement (down to 0402); back to a standard EEPROM.
+- **Files.** Both v1.1 boards — logic and power — are in `1_Board/`; the cold plate, heatsink and
+  camera design are in `2_Hardware/`. The source project is on
+  [OSHWLab](https://oshwlab.com/lordzurp/cam87_redux).
 
-| n | fichier |
+## Status & roadmap
+
+A variant is considered, with no file in this repository yet: a 48.5 mm round board, USB-C, and an
+opto-coupler alone for the cooling, without the MOSFET.
+
+## Credits
+
+Maelstrom stands on the CAM86 and cam87 projects, which
+pioneered the DSLR-sensor-reborn-as-astrocam approach; the cam87 is grim's (Gilmanov Rim).
+
+## Repository layout
+
+| Folder | Contents |
 |---|---|
-| 0 | `0-README.txt` : la fiche de la carte |
-| 1 | `1-Schematics.pdf`, `1-Schematics.png` : le schéma |
-| 2 | `2-view_top.png`, `2-view_bot.png` : vues du dessus et du dessous ; `2-view_3D.png`, `2-view_3D-bot.png`, `2-view_3D.step` : vues 3D du dessus et du dessous, et modèle 3D |
-| 3 | `3-Gerber.zip` : Gerber RS-274X et perçages Excellon |
-| 4 | `4-BoM.xlsx` : la nomenclature, références LCSC |
-| 5 | `5-PnP.xlsx` : le placement, coordonnées en mm |
+| [`0_Datasheets/`](0_Datasheets/) | datasheets of the components, as published by their makers |
+| [`1_Board/`](1_Board/) | manufacturing files of the two v1.1 boards, one subfolder each: `Logic-board/`, `Power-board/` |
+| [`2_Hardware/`](2_Hardware/) | mechanics: cold plate, heatsink, and the camera's design source (Fusion 360, STEP) |
+| [`4_Firmware/`](4_Firmware/) | the cam87 STM32 firmware binary and the MProg template of the FT2232H EEPROM |
+| [`5_App/`](5_App/) | Windows tools: FTDI MProg, and the cam87 viewer |
+| [`8_References/`](8_References/) | external references: CAM86 and cam87 schematics, QHY8 Pro pictures |
+| [`9_Assets/`](9_Assets/) | the showcase: product sheet, poster and README images |
 
-Exemple : `Maelstrom-Logic-board-v1.1_3-Gerber.zip`.
+## License
 
-Les autres fichiers gardent leur nom : ceux de `2_Hardware/` (`Maelstrom_<Pièce>.<ext>`), et les
-fichiers de tiers (datasheets, documents de référence, firmware, MProg, viewer).
+- **Hardware design** — boards, mechanics and 3D models: [Open Community License v1.1](LICENSE-HARDWARE).
+- **Everything else** — firmware, software, documentation and images: [GNU GPL v3.0](LICENSE).
 
-## Licences
+Third-party material keeps its own licence:
 
-- Logiciel : [`LICENSE`](LICENSE)
-- Matériel : [`LICENSE-HARDWARE`](LICENSE-HARDWARE)
+- the datasheets in `0_Datasheets/` and the documents in `8_References/` belong to their authors;
+- MProg and its DLLs (`5_App/MProg 3.5 Release/`) are under FTDI's licence (`EULA.txt` in their folder);
+- the viewer (`5_App/Viewer/`) and the firmware `4_Firmware/cam87 v1.0.bin` come from grim's (Gilmanov Rim) cam87, published without a licence; the `ftd2xx.dll` next to the viewer is FTDI's D2XX DLL;
+- `4_Firmware/cam87.ept`, the MProg template of the cam87's FT2232H EEPROM, comes from the cam87 forums — most likely astroclub.kiev.ua, where grim's project was born (probable, not confirmed) — with no known licence.
 
-Exceptions, qui gardent leur propre licence :
+---
 
-- les datasheets de `0_Datasheets/` et les documents de `8_References/` restent la propriété de
-  leurs auteurs ;
-- MProg et ses DLL (`5_App/MProg 3.5 Release/`) sont sous la licence de FTDI
-  (`EULA.txt` dans son dossier) ;
-- le viewer (`5_App/Viewer/viewer cam87.exe`, `cam87.xml`) et le firmware `4_Firmware/cam87 v1.0.bin`
-  viennent de la cam87 de grim (Gilmanov Rim), publiés sans licence ; la `ftd2xx.dll` qui
-  accompagne le viewer est la DLL D2XX de FTDI ;
-- `4_Firmware/cam87.ept` : gabarit MProg de l'EEPROM du FT2232H de la cam87, récupéré sur les
-  forums de la cam87 — **très probablement** astroclub.kiev.ua, le forum où le projet de grim est
-  né (provenance probable, non confirmée) —, sans licence connue.
+<p align="center"><sub><a href="https://zurp-astronomics.github.io/">zUrp Astronomics</a> — a subsidiary of zUrp Industries. Because buying is cheating.</sub></p>

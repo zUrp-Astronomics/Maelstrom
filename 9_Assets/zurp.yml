@@ -13,7 +13,9 @@
 # haut). Le statut, lui, n'est pas déduit : il est écrit ici, et c'est l'humain qui le décide.
 
 name: Maelstrom
-tagline: APS-C cooled astronomical camera, with Nikon D40 CCD sensor.
+tagline: >-
+  A cooled APS-C astrocam built around the CCD of a Nikon D40 — for less than the price of a new
+  CMOS camera.
 slogan: Pull the sky in
 category: Camera
 section: cameras          # mounts | cameras | gadgets | future
