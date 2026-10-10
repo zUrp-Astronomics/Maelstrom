@@ -13,7 +13,7 @@
 
 <h1 align="center">Maelstrom</h1>
 
-<p align="center"><strong><em>Pull the sky in.</em></strong></p>
+<p align="center"><strong><em>Pull the sky in</em></strong></p>
 
 <p align="center">
   <a href="https://zurp-astronomics.github.io/maelstrom/">Website</a> ·
